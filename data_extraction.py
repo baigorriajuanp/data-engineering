@@ -88,7 +88,6 @@ if __name__ == "__main__":
     raw_data = extract_crypto_data(url)
     transformed_data = transform_data(raw_data)
     df = pd.DataFrame(transformed_data)
-    #redshift_conn_str = 'redshift+psycopg2://baigorriajuanp_coderhouse:5iQ2iPP1I4@data-engineer-cluster.cyhh5bfevlmn.us-east-1.redshift.amazonaws.com:5439/data-engineer-database'
     redshift_conn_str = f'redshift+psycopg2://{REDSHIFT_USERNAME}:{REDSHIFT_PASSWORD}@{REDSHIFT_HOST}:{REDSHIFT_PORT}/{REDSHIFT_DBNAME}'
     redshift_table = 'crypto_data'
     load_data_to_redshift(df, redshift_table, redshift_conn_str)
