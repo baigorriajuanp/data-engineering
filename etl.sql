@@ -1,6 +1,5 @@
 -- Tabla creada en Redshift mediante consola SQL de Dbeaver
 
-
 CREATE TABLE crypto_data (
     id VARCHAR(50) NOT NULL,
     symbol VARCHAR(10) NOT NULL,

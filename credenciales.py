@@ -1,0 +1,5 @@
+REDSHIFT_USERNAME= 'baigorriajuanp_coderhouse'
+REDSHIFT_PASSWORD= '5iQ2iPP1I4'
+REDSHIFT_HOST= 'data-engineer-cluster.cyhh5bfevlmn.us-east-1.redshift.amazonaws.com'
+REDSHIFT_PORT= '5439'
+REDSHIFT_DBNAME= 'data-engineer-database'

@@ -3,6 +3,19 @@ import pandas as pd
 from sqlalchemy import create_engine, Table, Column, Integer, String, Float, MetaData
 from sqlalchemy.dialects.postgresql import TIMESTAMP
 import datetime
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+REDSHIFT_USERNAME= os.getenv('REDSHIFT_USERNAME')
+REDSHIFT_PASSWORD= os.getenv('REDSHIFT_PASSWORD')
+REDSHIFT_HOST= os.getenv('REDSHIFT_HOST')
+REDSHIFT_PORT= os.getenv('REDSHIFT_PORT')
+REDSHIFT_DBNAME= os.getenv('REDSHIFT_DBNAME')
+
+
+
 
 # URL de la API para obtener datos de precios de criptomonedas
 url = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd'
@@ -75,6 +88,7 @@ if __name__ == "__main__":
     raw_data = extract_crypto_data(url)
     transformed_data = transform_data(raw_data)
     df = pd.DataFrame(transformed_data)
-    redshift_conn_str = 'redshift+psycopg2://baigorriajuanp_coderhouse:5iQ2iPP1I4@data-engineer-cluster.cyhh5bfevlmn.us-east-1.redshift.amazonaws.com:5439/data-engineer-database'
+    #redshift_conn_str = 'redshift+psycopg2://baigorriajuanp_coderhouse:5iQ2iPP1I4@data-engineer-cluster.cyhh5bfevlmn.us-east-1.redshift.amazonaws.com:5439/data-engineer-database'
+    redshift_conn_str = f'redshift+psycopg2://{REDSHIFT_USERNAME}:{REDSHIFT_PASSWORD}@{REDSHIFT_HOST}:{REDSHIFT_PORT}/{REDSHIFT_DBNAME}'
     redshift_table = 'crypto_data'
     load_data_to_redshift(df, redshift_table, redshift_conn_str)
