@@ -37,5 +37,5 @@ def load_data_to_redshift(df, redshift_table, redshift_conn_str):
                 timestamp=row['timestamp']
             )
             connection.execute(insert_stmt)
-
+    
     print(f"Datos cargados en la tabla {redshift_table}")
