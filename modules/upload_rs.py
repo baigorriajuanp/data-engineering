@@ -13,6 +13,7 @@ def load_data_to_redshift(df, redshift_table, redshift_conn_str):
     table = Table(
         redshift_table, metadata,
         Column('id', String, primary_key=True),
+        Column('id_hash', String),
         Column('symbol', String),
         Column('name', String),
         Column('current_price', Float),
@@ -29,6 +30,7 @@ def load_data_to_redshift(df, redshift_table, redshift_conn_str):
         for index, row in df.iterrows():
             insert_stmt = table.insert().values(
                 id=row['id'],
+                id_hash=row['id_hash'],
                 symbol=row['symbol'],
                 name=row['name'],
                 current_price=row['current_price'],

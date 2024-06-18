@@ -2,6 +2,7 @@
 
 CREATE TABLE crypto_data (
     id VARCHAR(50) NOT NULL,
+    id_hash VARCHAR(64),
     symbol VARCHAR(10) NOT NULL,
     name VARCHAR(100),
     current_price DECIMAL(18, 8),

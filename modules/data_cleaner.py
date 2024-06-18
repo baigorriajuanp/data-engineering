@@ -1,5 +1,6 @@
 import pandas as pd
-import datetime    
+import datetime
+import hashlib    
 
 
 def clean_and_transform_data(data):
@@ -18,6 +19,9 @@ def clean_and_transform_data(data):
     
     df = pd.DataFrame(cleaned_data)
     
+    # Generar el hash de la columna 'id'
+    df['id_hash'] = df['id'].apply(lambda x: hashlib.sha256(x.encode()).hexdigest())
+    print(df.head())
     # Eliminación de datos duplicados:
     df.drop_duplicates(subset=['id'], keep='last', inplace=True)
 
