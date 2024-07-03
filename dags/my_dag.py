@@ -1,10 +1,19 @@
 from datetime import datetime, timedelta
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
+import sys
 import os
 
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'modules'))
+
 def run_main():
-    os.system("python Pre-entrega\__main__.py")
+    print("EJECUTANDO EL DAG")
+    try:
+        import __main__
+        __main__.main()
+    except Exception as e:
+        print(f"Error al ejecutar el script: {e}")
 
 default_args = {
     'owner': 'airflow',
@@ -29,4 +38,5 @@ with DAG(
         python_callable=run_main,
     )
 
-    run_my_script
+
+    run_main()
