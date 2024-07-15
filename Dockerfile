@@ -19,5 +19,4 @@ RUN airflow db init
 
 EXPOSE 8080
 
-CMD ["sh", "-c", "airflow scheduler & airflow webserver --port 8080"]
-
+CMD ["airflow", "webserver"]
