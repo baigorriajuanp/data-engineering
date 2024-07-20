@@ -19,16 +19,10 @@ def clean_and_transform_data(data):
     
     df = pd.DataFrame(cleaned_data)
     
-    # Generar el hash de la columna 'id'
     df['id_hash'] = df['id'].apply(lambda x: hashlib.sha256(x.encode()).hexdigest())
     print(df.head())
-    # Eliminación de datos duplicados:
     df.drop_duplicates(subset=['id'], keep='last', inplace=True)
-
-    # Eliminación de datos nulos:
     df.dropna(inplace=True)
-
-    # Verificación y conversión de datos:
     df['current_price'] = pd.to_numeric(df['current_price'], errors='coerce')
     df['market_cap'] = pd.to_numeric(df['market_cap'], errors='coerce')
     df['total_volume'] = pd.to_numeric(df['total_volume'], errors='coerce')
@@ -54,3 +48,4 @@ def clean_and_transform_data(data):
     df['name'] = df['name'].str.title()
 
     return df
+

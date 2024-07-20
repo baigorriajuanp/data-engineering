@@ -5,17 +5,16 @@ WORKDIR /usr/local/airflow
 COPY requirements.txt .
 
 RUN pip install --no-cache-dir -r requirements.txt
-RUN pip install apache-airflow
+RUN pip install apache-airflow==2.7.0 python-dotenv  # Ajusta la versión según sea necesario
 
+# Crear los directorios necesarios
 RUN mkdir -p /usr/local/airflow/dags /usr/local/airflow/logs /usr/local/airflow/plugins /usr/local/airflow/modules
 
 COPY dags /usr/local/airflow/dags
-COPY __main__.py /usr/local/airflow/dags/__main__.py
 COPY modules /usr/local/airflow/modules
+COPY .env /usr/local/airflow/.env
 
 ENV AIRFLOW_HOME=/usr/local/airflow
-
-RUN airflow db init
 
 EXPOSE 8080
 

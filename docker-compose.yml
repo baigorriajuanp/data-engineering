@@ -1,28 +1,5 @@
 version: '3'
 services:
-  webserver:
-    image: my_airflow_image
-    ports:
-      - "8080:8080"
-    environment:
-      - LOAD_EX=y
-      - EXECUTOR=LocalExecutor
-    volumes:
-      - ./dags:/usr/local/airflow/dags
-      - ./modules:/usr/local/airflow/modules
-      - ./requirements.txt:/usr/local/airflow/requirements.txt
-      - ./.env:/usr/local/airflow/.env
-    command: ["airflow", "webserver"]
-  scheduler:
-    image: my_airflow_image
-    environment:
-      - EXECUTOR=LocalExecutor
-    volumes:
-      - ./dags:/usr/local/airflow/dags
-      - ./modules:/usr/local/airflow/modules
-      - ./requirements.txt:/usr/local/airflow/requirements.txt
-      - ./.env:/usr/local/airflow/.env
-    command: ["airflow", "scheduler"]
   postgres:
     image: postgres:13
     environment:
@@ -33,5 +10,62 @@ services:
       - "5432:5432"
     volumes:
       - postgres_db_volume:/var/lib/postgresql/data
+
+  airflow_init:
+    image: my_airflow_image
+    environment:
+      - AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres/airflow
+      - AIRFLOW__WEBSERVER__SECRET_KEY=hpUsQFK7wYusAKU+RzR4Yw==
+    volumes:
+      - ./dags:/usr/local/airflow/dags
+      - ./modules:/usr/local/airflow/modules
+      - ./requirements.txt:/usr/local/airflow/requirements.txt
+      - ./.env:/usr/local/airflow/.env
+    entrypoint: ["airflow", "db", "init"]
+    depends_on:
+      - postgres
+    command: ["airflow", "db", "init"]
+
+  webserver:
+    image: my_airflow_image
+    ports:
+      - "8080:8080"
+    environment:
+      - LOAD_EX=y
+      - EXECUTOR=LocalExecutor
+      - AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres/airflow
+      - AIRFLOW__CORE__EXECUTOR=LocalExecutor
+      - AIRFLOW__CORE__FERNET_KEY=PPgsGXfHdYnQwBKoiYgUxAduY8vrbkss_oQba5ODRGo=
+      - AIRFLOW__WEBSERVER__SECRET_KEY=hpUsQFK7wYusAKU+RzR4Yw==
+      - PYTHONPATH=/usr/local/airflow/dags:/usr/local/airflow/modules
+    volumes:
+      - ./dags:/usr/local/airflow/dags
+      - ./modules:/usr/local/airflow/modules
+      - ./requirements.txt:/usr/local/airflow/requirements.txt
+      - ./.env:/usr/local/airflow/.env
+    command: ["airflow", "webserver"]
+    depends_on:
+      - postgres
+      - airflow_init
+
+  scheduler:
+    image: my_airflow_image
+    environment:
+      - EXECUTOR=LocalExecutor
+      - AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres/airflow
+      - AIRFLOW__CORE__EXECUTOR=LocalExecutor
+      - AIRFLOW__CORE__FERNET_KEY=PPgsGXfHdYnQwBKoiYgUxAduY8vrbkss_oQba5ODRGo=
+      - AIRFLOW__WEBSERVER__SECRET_KEY=hpUsQFK7wYusAKU+RzR4Yw==
+    volumes:
+      - ./dags:/usr/local/airflow/dags
+      - ./modules:/usr/local/airflow/modules
+      - ./requirements.txt:/usr/local/airflow/requirements.txt
+      - ./.env:/usr/local/airflow/.env
+    command: ["airflow", "scheduler"]
+    depends_on:
+      - postgres
+      - airflow_init
+
 volumes:
   postgres_db_volume:
+

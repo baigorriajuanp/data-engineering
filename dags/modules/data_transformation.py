@@ -1,7 +1,6 @@
 import datetime
 
 # Función para transformar los datos en un diccionario de Python
-
 def transform_data(data):
     transformed_data = []
     for coin in data:
@@ -16,3 +15,4 @@ def transform_data(data):
         }
         transformed_data.append(coin_data)
     return transformed_data
+
