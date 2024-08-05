@@ -1,5 +1,6 @@
 import smtplib
 from email.mime.text import MIMEText
+import os
 
 ALERT_THRESHOLD = 50000  #Ejemplo de umbral para alerta
 
@@ -14,18 +15,18 @@ def check_and_send_alert(data):
             )
 
 def send_alert(subject, body):
-    smtp_host = 'smtp.example.com'
-    smtp_port = 587
-    smtp_user = 'tu_usuario@example.com'
-    smtp_password = 'tu_contraseña'
+    smtp_host = os.getenv('SMTP_HOST')
+    smtp_port = os.getenv('SMTP_PORT')
+    smtp_user = os.getenv('SMTP_USER')
+    smtp_password = os.getenv('MAIL_PASSWORD')
 
-    from_email = 'alertas@example.com'
-    to_email = 'destinatario@example.com'
+    from_email = smtp_user
+    to_email = smtp_user
 
     msg = MIMEText(body)
     msg['Subject'] = subject
-    msg['From'] = from_email
-    msg['To'] = to_email
+    msg['From'] = os.getenv('SMTP_USER')
+    msg['To'] = os.getenv('MAIL_RECEIVER')
 
     try:
         with smtplib.SMTP(smtp_host, smtp_port) as server:

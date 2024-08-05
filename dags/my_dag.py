@@ -5,13 +5,18 @@ from modules.data_cleaner import clean_and_transform_data
 from modules.upload_rs import load_data_to_redshift
 from modules.alerting import check_and_send_alert
 from modules.csv_adquisition import load_data_from_csv
+from modules.email_sending import send_email
 import pandas as pd
 import os
 import json
+import smtplib
+from email.mime.text import MIMEText
+
 
 from dotenv import load_dotenv
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
+from airflow.operators.email_operator import EmailOperator
 
 load_dotenv()
 
@@ -133,6 +138,14 @@ load_from_csv_task = PythonOperator(
     dag=dag,
 )
 
+send_email_task = PythonOperator(
+    task_id='send_mail',
+    python_callable=send_email,
+    dag=dag,
+)
+
+
 extract_task >> transform_task >> [load_task, alert_task]
 # Tarea independiente para cargar desde CSV
 load_from_csv_task
+load_task >> send_email_task

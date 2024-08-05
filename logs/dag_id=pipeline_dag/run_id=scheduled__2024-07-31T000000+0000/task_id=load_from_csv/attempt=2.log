@@ -1,0 +1,86 @@
+[2024-08-01T11:48:34.611+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2024-08-01T11:48:35.322+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: pipeline_dag.load_from_csv scheduled__2024-07-31T00:00:00+00:00 [queued]>
+[2024-08-01T11:48:35.406+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: pipeline_dag.load_from_csv scheduled__2024-07-31T00:00:00+00:00 [queued]>
+[2024-08-01T11:48:35.409+0000] {taskinstance.py:2306} INFO - Starting attempt 2 of 2
+[2024-08-01T11:49:08.270+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): load_from_csv> on 2024-07-31 00:00:00+00:00
+[2024-08-01T11:49:08.365+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:61: DeprecationWarning: This process (pid=140) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2024-08-01T11:49:08.388+0000] {standard_task_runner.py:63} INFO - Started process 161 to run task
+[2024-08-01T11:49:08.415+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'pipeline_dag', 'load_from_csv', 'scheduled__2024-07-31T00:00:00+00:00', '--job-id', '7', '--raw', '--subdir', 'DAGS_FOLDER/my_dag.py', '--cfg-path', '/tmp/tmp2w0o1k8u']
+[2024-08-01T11:49:08.441+0000] {standard_task_runner.py:91} INFO - Job 7: Subtask load_from_csv
+[2024-08-01T11:49:08.659+0000] {task_command.py:426} INFO - Running <TaskInstance: pipeline_dag.load_from_csv scheduled__2024-07-31T00:00:00+00:00 [running]> on host 666970a980e1
+[2024-08-01T11:49:09.256+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='pipeline_dag' AIRFLOW_CTX_TASK_ID='load_from_csv' AIRFLOW_CTX_EXECUTION_DATE='2024-07-31T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='2' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2024-07-31T00:00:00+00:00'
+[2024-08-01T11:49:09.265+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2024-08-01T11:49:09.371+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2024-08-01T11:49:09.380+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 401, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 235, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 252, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/my_dag.py", line 99, in load_from_csv
+    load_data_from_csv(file_path, REDSHIFT_TABLE, REDSHIFT_CONN_STR)
+  File "/opt/airflow/dags/modules/csv_adquisition.py", line 9, in load_data_from_csv
+    df = pd.read_csv(file_path)
+         ^^
+NameError: name 'pd' is not defined
+[2024-08-01T11:49:09.463+0000] {taskinstance.py:1206} INFO - Marking task as FAILED. dag_id=pipeline_dag, task_id=load_from_csv, run_id=scheduled__2024-07-31T00:00:00+00:00, execution_date=20240731T000000, start_date=20240801T114835, end_date=20240801T114909
+[2024-08-01T11:49:09.514+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 7 for task load_from_csv (name 'pd' is not defined; 161)
+[2024-08-01T11:49:09.581+0000] {local_task_job_runner.py:240} INFO - Task exited with return code 1
+[2024-08-01T11:49:09.747+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2024-08-01T11:49:09.763+0000] {local_task_job_runner.py:222} INFO - ::endgroup::
+[2024-08-01T12:20:52.962+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2024-08-01T12:20:53.102+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: pipeline_dag.load_from_csv scheduled__2024-07-31T00:00:00+00:00 [queued]>
+[2024-08-01T12:20:53.132+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: pipeline_dag.load_from_csv scheduled__2024-07-31T00:00:00+00:00 [queued]>
+[2024-08-01T12:20:53.139+0000] {taskinstance.py:2306} INFO - Starting attempt 2 of 2
+[2024-08-01T12:20:54.033+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): load_from_csv> on 2024-07-31 00:00:00+00:00
+[2024-08-01T12:20:54.056+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:61: DeprecationWarning: This process (pid=180) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2024-08-01T12:20:54.076+0000] {standard_task_runner.py:63} INFO - Started process 182 to run task
+[2024-08-01T12:20:54.078+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'pipeline_dag', 'load_from_csv', 'scheduled__2024-07-31T00:00:00+00:00', '--job-id', '13', '--raw', '--subdir', 'DAGS_FOLDER/my_dag.py', '--cfg-path', '/tmp/tmpy2b3zery']
+[2024-08-01T12:20:54.104+0000] {standard_task_runner.py:91} INFO - Job 13: Subtask load_from_csv
+[2024-08-01T12:20:54.403+0000] {task_command.py:426} INFO - Running <TaskInstance: pipeline_dag.load_from_csv scheduled__2024-07-31T00:00:00+00:00 [running]> on host 13956c1b13e1
+[2024-08-01T12:20:54.701+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='pipeline_dag' AIRFLOW_CTX_TASK_ID='load_from_csv' AIRFLOW_CTX_EXECUTION_DATE='2024-07-31T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='2' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2024-07-31T00:00:00+00:00'
+[2024-08-01T12:20:54.713+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2024-08-01T12:20:54.762+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2024-08-01T12:20:54.765+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 401, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 235, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 252, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/my_dag.py", line 99, in load_from_csv
+    load_data_from_csv(file_path, REDSHIFT_TABLE, REDSHIFT_CONN_STR)
+  File "/opt/airflow/dags/modules/csv_adquisition.py", line 9, in load_data_from_csv
+    df = pd.read_csv(file_path)
+         ^^
+NameError: name 'pd' is not defined
+[2024-08-01T12:20:54.844+0000] {taskinstance.py:1206} INFO - Marking task as FAILED. dag_id=pipeline_dag, task_id=load_from_csv, run_id=scheduled__2024-07-31T00:00:00+00:00, execution_date=20240731T000000, start_date=20240801T122053, end_date=20240801T122054
+[2024-08-01T12:20:55.380+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 13 for task load_from_csv (name 'pd' is not defined; 182)
+[2024-08-01T12:20:55.435+0000] {local_task_job_runner.py:240} INFO - Task exited with return code 1
+[2024-08-01T12:20:55.473+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2024-08-01T12:20:55.488+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

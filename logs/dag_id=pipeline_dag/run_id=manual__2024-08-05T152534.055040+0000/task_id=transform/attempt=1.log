@@ -1,0 +1,28 @@
+[2024-08-05T15:25:36.948+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2024-08-05T15:25:36.970+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: pipeline_dag.transform manual__2024-08-05T15:25:34.055040+00:00 [queued]>
+[2024-08-05T15:25:36.978+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: pipeline_dag.transform manual__2024-08-05T15:25:34.055040+00:00 [queued]>
+[2024-08-05T15:25:36.979+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 2
+[2024-08-05T15:25:37.105+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): transform> on 2024-08-05 15:25:34.055040+00:00
+[2024-08-05T15:25:37.109+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:61: DeprecationWarning: This process (pid=72) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2024-08-05T15:25:37.111+0000] {standard_task_runner.py:63} INFO - Started process 74 to run task
+[2024-08-05T15:25:37.110+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'pipeline_dag', 'transform', 'manual__2024-08-05T15:25:34.055040+00:00', '--job-id', '354', '--raw', '--subdir', 'DAGS_FOLDER/my_dag.py', '--cfg-path', '/tmp/tmpx2wbs24y']
+[2024-08-05T15:25:37.112+0000] {standard_task_runner.py:91} INFO - Job 354: Subtask transform
+[2024-08-05T15:25:37.152+0000] {task_command.py:426} INFO - Running <TaskInstance: pipeline_dag.transform manual__2024-08-05T15:25:34.055040+00:00 [running]> on host ea1558f95a7b
+[2024-08-05T15:25:37.223+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='pipeline_dag' AIRFLOW_CTX_TASK_ID='transform' AIRFLOW_CTX_EXECUTION_DATE='2024-08-05T15:25:34.055040+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2024-08-05T15:25:34.055040+00:00'
+[2024-08-05T15:25:37.225+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2024-08-05T15:25:37.261+0000] {logging_mixin.py:188} INFO -             id  ...                                            id_hash
+0      bitcoin  ...  6b88c087247aa2f07ee1c5956b8e1a9f4c7f892a70e324...
+1     ethereum  ...  b60d7bdd334cd3768d43f14a05c7fe7e886ba5bcb77e10...
+2       tether  ...  3dc7089d175e3fa1640f29917f3ae503c7f6919a9a0f80...
+3  binancecoin  ...  b3b83d263a9e9898cf719285fb5acd74984c30cbc09799...
+4       solana  ...  615666dae9d3625adaef933e4c1ed0158f657a22c2f570...
+
+[5 rows x 8 columns]
+[2024-08-05T15:25:37.282+0000] {python.py:237} INFO - Done. Returned value was: None
+[2024-08-05T15:25:37.283+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2024-08-05T15:25:37.292+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=pipeline_dag, task_id=transform, run_id=manual__2024-08-05T15:25:34.055040+00:00, execution_date=20240805T152534, start_date=20240805T152536, end_date=20240805T152537
+[2024-08-05T15:25:37.325+0000] {local_task_job_runner.py:240} INFO - Task exited with return code 0
+[2024-08-05T15:25:37.347+0000] {taskinstance.py:3503} INFO - 2 downstream tasks scheduled from follow-on schedule check
+[2024-08-05T15:25:37.352+0000] {local_task_job_runner.py:222} INFO - ::endgroup::
